@@ -30,7 +30,18 @@ typedef id(^ReduceBlock)(id obj, id current);
  
  This category adds functional programming methods to NSArray using blocks.
  
- 
+ Example usage:
+     NSArray* numbers = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+     
+     // Returns (2, 4, 6, 8, 10)
+     NSArray* evenNumbers = [numbers filter:^BOOL(id obj) { return ([obj integerValue] % 2 == 0); }];
+     
+     // Returns (1, 4, 9, 16, 25, 36, 49, 64, 81, 100)
+     NSArray* squares = [numbers map:^id(id obj) { return @([obj integerValue] * [obj integerValue]); }];
+     
+     // Returns 55
+     NSNumber* sum = [numbers reduce:^id(id obj, id current) { return @([obj integerValue] + [current integerValue]); }
+                     withInitializer:@0];
  
  ---------------------------------------------------------------------------- */
 
