@@ -23,7 +23,7 @@
 
 @implementation NSArray (FilterMapReduce)
 
-- (NSArray*)filter:(FilterBlock)block
+- (NSArray*)filter:(BOOL (^)(id obj))block
 {
     NSMutableArray* ret = [NSMutableArray arrayWithCapacity:self.count];
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
@@ -36,7 +36,7 @@
     return ret;
 }
 
-- (NSArray*)map:(MapBlock)block
+- (NSArray*)map:(id (^)(id obj))block
 {
     NSMutableArray* ret = [NSMutableArray arrayWithCapacity:self.count];
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
@@ -46,7 +46,7 @@
     return ret;
 }
 
-- (id)reduce:(ReduceBlock)block withInitializer:(id<NSCopying>)initializer
+- (id)reduce:(id (^)(id obj, id current))block withInitializer:(id<NSCopying>)initializer
 {
     __block id ret = [((NSObject*)initializer) copy];
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
