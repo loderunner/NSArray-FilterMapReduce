@@ -10,20 +10,17 @@ The `FilterMapReduce` category adds three methods to `NSArray`.
 
 **filter:** returns an array containing the elements of the array for which `block(obj)` evaluates to `true`.
 ```objc
-typedef BOOL(^FilterBlock)(id obj);
-- (NSArray*)filter:BOOL(^block)(id);
+- (NSArray*)filter:(BOOL (^)(id obj))block;
 ```
 
 **map:** calls `block(obj)` on each of the elements and returns an array of the results.
 ```objc
-typedef id(^MapBlock)(id obj);
-- (NSArray*)map:(MapBlock)block;
+- (NSArray*)map:(id (^)(id obj))block;
 ```
 
 **reduce:withInitializer:** reduces the array to a single value by calling `block(obj, current)` cumulatively on each element from left to right and using the result as `current` for the next element. An `initializer` is given for the first value of `current`.
 ```objc
-typedef id(^ReduceBlock)(id obj, id current);
-- (id)reduce:(ReduceBlock)block withInitializer:(id<NSCopying>)initializer;
+- (id)reduce:(id (^)(id obj, id current))block withInitializer:(id<NSCopying>)initializer;
 ```
 
 
